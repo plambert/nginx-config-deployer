@@ -53,8 +53,7 @@ echo "📂 STEP 1: Check the backup directory..."
 # echo "   - 경로: ${BACKUP_DIR}" # (Korean)
 echo "   - Directory: ${BACKUP_DIR}" # (English Translation)
 
-mkdir -p "${BACKUP_DIR}"
-if [ $? -ne 0 ]; then
+if ! mkdir -p "${BACKUP_DIR}"; then
   # echo "❌ 백업 디렉토리 생성 실패. 경로와 권한을 확인하세요." # (Korean)
   echo "❌ Failed to create backup directory. Check the path and permissions." # (English Translation)
   exit 1
@@ -84,9 +83,7 @@ echo "   - Target file: ${BACKUP_FILE_PATH}" # (English Translation)
 # Back up a directory into a single compressed file using the tar command # (English Translation)
 # c: 새로운 아카이브 생성, z: gzip으로 압축, f: 파일명 지정, p: 권한 보존 # (Korean)
 # c: create new archive, z: compress with gzip, f: specify file name, p: preserve permissions # (English Translation)
-tar -czpf "${BACKUP_FILE_PATH}" -C "$(dirname "${NGINX_CONFIG_PATH}")" "$(basename "${NGINX_CONFIG_PATH}")"
-
-if [ $? -ne 0 ]; then
+if ! tar -czpf "${BACKUP_FILE_PATH}" -C "$(dirname "${NGINX_CONFIG_PATH}")" "$(basename "${NGINX_CONFIG_PATH}")"; then
   # echo "❌ Nginx 설정 백업 실패!" # (Korean)
   echo "❌ Nginx configuration backup failed!" # (English Translation)
   exit 1
