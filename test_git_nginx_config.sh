@@ -74,9 +74,7 @@ echo "🧪 STEP 2: Run a pre-test of your Nginx configuration syntax..." # (Engl
 
 # -t 옵션으로 테스트, -c 옵션으로 실제 서비스가 아닌 Git 저장소의 설정 파일 지정 # (Korean)
 # -t option for testing, -c option for specifying configuration file in Git repository instead of actual service # (English Translation)
-nginx -t -c "${CONFIG_SOURCE_PATH}"
-
-if [ $? -ne 0 ]; then
+if ! nginx -t -c "${CONFIG_SOURCE_PATH}"; then
   # echo "❌ Nginx 설정 테스트 실패. Git 저장소의 파일을 수정하십시오." # (Korean)
   echo "❌ Nginx configuration test failed. Please fix the file in the Git repository." # (English Translation)
   exit 1
