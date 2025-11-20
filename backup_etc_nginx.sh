@@ -16,6 +16,8 @@
 # 2. Automatically delete old backup files after a specified period.
 # ==============================================================================
 
+set -e -o pipefail
+
 # 스크립트는 반드시 sudo 권한으로 실행되어야 합니다. # (Korean)
 # The script must be run with sudo privileges. # (English Translation)
 

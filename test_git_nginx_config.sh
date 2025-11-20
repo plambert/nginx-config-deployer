@@ -18,6 +18,8 @@
 # 3. Pre-validates changes before running deployment scripts.
 # ==============================================================================
 
+set -e -o pipefail
+
 # 스크립트는 반드시 sudo 권한으로 실행되어야 합니다. # (Korean)
 # The script must be run with sudo privileges. (English Translation)
 # (SSL 인증서 등 root 권한이 필요한 파일을 읽기 위함) # (Korean)
