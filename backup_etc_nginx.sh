@@ -16,8 +16,8 @@
 # 2. Automatically delete old backup files after a specified period.
 # ==============================================================================
 
-# 스크립트는 반드시 sudo 권한으로 실행되어야 합니다.
-# The script must be run with sudo privileges. (English Translation)
+# 스크립트는 반드시 sudo 권한으로 실행되어야 합니다. # (Korean)
+# The script must be run with sudo privileges. # (English Translation)
 
 if [ "$EUID" -ne 0 ]; then
   # echo "🚨 이 스크립트는 sudo 권한으로 실행해야 합니다." # (Korean)
@@ -27,8 +27,8 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-# --- 변수 설정 (!!! 사용 전 이 부분을 자신의 환경에 맞게 수정하세요 !!!) --- (Korean)
-# --- Setting variables (!!! Modify this part to suit your environment before use!!!) --- (English Translation)
+# --- 변수 설정 (!!! 사용 전 이 부분을 자신의 환경에 맞게 수정하세요 !!!) --- # (Korean)
+# --- Setting variables (!!! Modify this part to suit your environment before use!!!) --- # (English Translation)
 
 # 백업을 저장할 디렉토리 경로 # (Korean)
 # Directory path to save backups # (English Translation)
