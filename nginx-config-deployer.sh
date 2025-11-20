@@ -59,9 +59,16 @@ echo "   - Source: ${CONFIG_SOURCE_PATH}" # (English Translation)
 # echo "   - 대상: ${NGINX_TARGET_PATH}" # (Korean)
 echo "   - Target: ${NGINX_TARGET_PATH}" # (English Translation)
 
-rsync -av --delete --exclude='.git/' --exclude='.gitignore' --exclude='deploy*.sh' --exclude='backups/' --exclude='sites-enabled/' "${CONFIG_SOURCE_PATH}" "${NGINX_TARGET_PATH}"
-
-if [ $? -ne 0 ]; then
+if ! rsync \
+  -av \
+  --delete \
+  --exclude='.git/' \
+  --exclude='.gitignore' \
+  --exclude='deploy*.sh' \
+  --exclude='backups/' \
+  --exclude='sites-enabled/' \
+  "${CONFIG_SOURCE_PATH}" \
+  "${NGINX_TARGET_PATH}"; then
   # echo "❌ 동기화(rsync) 실패. 배포를 중단합니다." # (Korean)
   echo "❌ Synchronization (rsync) failed. Aborting deployment." # (English Translation)
   exit 1
@@ -107,8 +114,7 @@ done
 echo "🛡️ STEP 2: Reset file ownership and permissions (most important!)" # (English Translation)
 # 1. 전체 Nginx 설정 디렉토리 소유권을 root:root로 변경 # (Korean)
 # 1. Change ownership of the entire Nginx configuration directory to root:root. # (English Translation)
-chown -R root:root "${NGINX_TARGET_PATH}"
-if [ $? -ne 0 ]; then
+if ! chown -R root:root "${NGINX_TARGET_PATH}"; then
   # echo "❌ 소유권 변경 실패. 배포를 중단합니다." # (Korean)
   echo "❌ Ownership change failed. Aborting deployment." # (English Translation)
   exit 1
@@ -145,8 +151,7 @@ fi
 # echo "🧪 STEP 3: Nginx 설정 구문 테스트를 실행합니다..." # (Korean)
 echo "🧪 STEP 3: Run the Nginx configuration syntax test..." # (English Translation)
 
-nginx -t
-if [ $? -ne 0 ]; then
+if ! nginx -t; then
   echo "❌ Nginx 설정 테스트 실패. 오류를 수정하고 다시 시도하세요."
   exit 1
 fi
@@ -162,8 +167,7 @@ fi
 # echo "🔄 STEP 4: Nginx 서비스를 재시작(reload)합니다..." # (Korean)
 echo "🔄 STEP 4: Reload the Nginx service..." # (English Translation)
 
-systemctl reload nginx
-if [ $? -ne 0 ]; then
+if ! systemctl reload nginx; then
   # echo "❌ Nginx 서비스 재시작 실패. 로그를 확인하세요." # (Korean)
   echo "❌ Failed to restart Nginx service. Check the logs." # (English Translation)
   exit 1
